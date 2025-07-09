@@ -1,5 +1,12 @@
+import { Link } from "react-router-dom";
+
 const TopPage = () => {
-  return <h1>TopPage</h1>;
+  return (
+    <>
+      <Link to={"/signup"}>サインアップ</Link>
+      <Link to={"/login"}>ログイン</Link>
+    </>
+  );
 };
 
 export default TopPage;
