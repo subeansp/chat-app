@@ -1,24 +1,57 @@
-# Logs
-logs
+# --- Node/React ---
+node_modules/
+dist/
+build/
+dist-ssr/
 *.log
-npm-debug.log*
+logs/
+*.local
+*.env
+.env.*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+npm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.pdm.toml
+.pdm.lock
+pip-log.txt
+pip-delete-this-directory.txt
+*.sqlite3
+db.sqlite3
 
-# Editor directories and files
+# --- OS/Editor ---
+.DS_Store
+Thumbs.db
+.idea/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# --- Misc ---
+*.swp
+*.bak
+*.tmp
+*.orig
