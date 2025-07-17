@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pymongo.asynchronous.database import AsyncDatabase
-from datetime import datetime, timezone
 import logging
-from models.models import UserCreate, UserInDB, APIResponse
+from models.models import SignupRequest, UserInDB, APIResponse
 from db.session import get_db
 from utils.password import hash_password
 
@@ -12,12 +11,13 @@ router = APIRouter()
 
 
 @router.post("/signup", response_model=APIResponse)
-async def signup(user_data: UserCreate, db: AsyncDatabase = Depends(get_db)):
+async def signup(user_data: SignupRequest, db: AsyncDatabase = Depends(get_db)):
     users_collection = db.get_collection("users")
+
     existing_user = await users_collection.find_one({"username": user_data.username})
     if existing_user:
-        logger.warning("登録失敗/ユーザーネームの重複")
-        raise HTTPException(status_code=409, detail="ユーザーネームが既に存在します")
+        logger.warning("登録失敗/ユーザーネームの重複: %s", user_data.username)
+        raise HTTPException(status_code=409, detail="ユーザーが既に存在します")
 
     hashed_password = hash_password(user_data.password)
     new_user = UserInDB(
@@ -25,9 +25,6 @@ async def signup(user_data: UserCreate, db: AsyncDatabase = Depends(get_db)):
         hashed_password=hashed_password
     )
 
-    inserted_result = await users_collection.insert_one(new_user.model_dump())
-    logger.info("ユーザー登録成功: %s", new_user.username)
-    return APIResponse(
-        message="ユーザーの登録に成功しました",
-        inserted_id=str(inserted_result.inserted_id)
-    )
+    await users_collection.insert_one(new_user.model_dump())
+    logger.info("ユーザー登録成功: %s", user_data.username)
+    return APIResponse(message="ユーザーの登録に成功しました")

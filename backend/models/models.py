@@ -1,9 +1,13 @@
 from pydantic import BaseModel, Field
 from datetime import datetime, timezone
-from typing import Optional
 
 
-class UserCreate(BaseModel):
+class SignupRequest(BaseModel):
+    username: str
+    password: str
+
+
+class LoginRequest(BaseModel):
     username: str
     password: str
 
@@ -18,4 +22,3 @@ class UserInDB(BaseModel):
 
 class APIResponse(BaseModel):
     message: str
-    inserted_id: Optional[str]
