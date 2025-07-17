@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pymongo.asynchronous.database import AsyncDatabase
 import logging
-from models.models import AuthRequest, UserInDB, APIResponse
+from models.models import SignupRequest, UserInDB, APIResponse
 from db.session import get_db
 from utils.password import hash_password
 
@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/signup", response_model=APIResponse)
-async def signup(user_data: AuthRequest, db: AsyncDatabase = Depends(get_db)):
+async def signup(user_data: SignupRequest, db: AsyncDatabase = Depends(get_db)):
     users_collection = db.get_collection("users")
 
     existing_user = await users_collection.find_one({"username": user_data.username})

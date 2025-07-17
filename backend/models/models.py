@@ -2,7 +2,12 @@ from pydantic import BaseModel, Field
 from datetime import datetime, timezone
 
 
-class AuthRequest(BaseModel):
+class SignupRequest(BaseModel):
+    username: str
+    password: str
+
+
+class LoginRequest(BaseModel):
     username: str
     password: str
 
