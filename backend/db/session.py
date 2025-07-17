@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Request
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
-from pymongo.errors import ConnectionFailure
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 import os
@@ -26,6 +25,7 @@ async def lifespan(app: FastAPI):
         yield
     except Exception as e:
         logger.error("MongoDB 接続エラー", exc_info=True)
+        raise
     finally:
         if client:
             await client.close()

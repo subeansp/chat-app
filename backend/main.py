@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 from db.session import lifespan
 from api.signup import router as signup_router
+from api.login import router as login_router
 
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
@@ -17,3 +18,4 @@ app.add_middleware(
 )
 
 app.include_router(signup_router, prefix="/api")
+app.include_router(login_router, prefix="/api")
