@@ -22,3 +22,4 @@ class UserInDB(BaseModel):
 
 class APIResponse(BaseModel):
     message: str
+    access_token: str | None = None
