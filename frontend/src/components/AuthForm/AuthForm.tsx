@@ -9,10 +9,11 @@ const AuthForm = ({
   inputPropsList,
   buttonLabel,
   bottomLink,
+  onSubmit,
 }: AuthFormProps) => {
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form onSubmit={onSubmit} className={styles.form}>
         <div className={styles.title}>
           <h1>{title}</h1>
         </div>
