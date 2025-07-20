@@ -1,7 +1,18 @@
 import AuthForm from "../components/AuthForm/AuthForm";
-import type { InputProps } from "../types/types";
+import type { InitialSignupForm, InputProps } from "../types/types";
+import useAuthForm from "../hooks/useAuthForm";
+
+const initialForm: InitialSignupForm = {
+  username: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const SignupPage = () => {
+  const { form, handleChange, handleSubmit } = useAuthForm<InitialSignupForm>({
+    initialForm,
+  });
+
   const inputPropsList: InputProps[] = [
     {
       id: "signup-username",
@@ -9,6 +20,8 @@ const SignupPage = () => {
       type: "text",
       placeholder: "Username",
       autoComplete: "off",
+      value: form.username,
+      onChange: handleChange,
     },
     {
       id: "signup-password",
@@ -16,6 +29,8 @@ const SignupPage = () => {
       type: "password",
       placeholder: "Password",
       autoComplete: "off",
+      value: form.password,
+      onChange: handleChange,
     },
     {
       id: "signup-confirmPassword",
@@ -23,6 +38,8 @@ const SignupPage = () => {
       type: "password",
       placeholder: "Confirm Password",
       autoComplete: "off",
+      value: form.confirmPassword,
+      onChange: handleChange,
     },
   ];
 
@@ -32,6 +49,7 @@ const SignupPage = () => {
       inputPropsList={inputPropsList}
       buttonLabel="登録"
       bottomLink={{ to: "/login", label: "ログイン" }}
+      onSubmit={handleSubmit}
     />
   );
 };
